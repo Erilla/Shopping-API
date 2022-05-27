@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\ShoppingAPI.Business\ShoppingAPI.Business.csproj" />
   </ItemGroup>
 
 </Project>
