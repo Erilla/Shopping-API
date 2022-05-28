@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShoppingAPI.Business.Models;
+using ShoppingAPI.Business.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,6 +10,13 @@ namespace ShoppingAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
+        {
+            _productService = productService;
+        }
+
         // GET: api/<ProductController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -15,11 +24,11 @@ namespace ShoppingAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<ProductController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<ProductController>/EAN1
+        [HttpGet("{productCode}")]
+        public Product Get(string productCode)
         {
-            return "value";
+            return _productService.GetProductByProductCode(productCode);
         }
 
         // POST api/<ProductController>

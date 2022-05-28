@@ -1,15 +1,15 @@
-﻿using ShoppingAPI.Business.Models;
+﻿using ShoppingAPI.EntityFramework.Entities;
 
 namespace ShoppingAPI.Business.Repositories
 {
-    internal interface IProductRepository
+    public interface IProductRepository
     {
-        Product GetProductByProductCode(string productCode);
+        ProductEntity GetProductByProductCode(string productCode);
 
-        void UpdateProduct(Product product);
+        void UpdateProductPriceByProductCode(string productCode, decimal newPrice);
 
-        void AddProduct(Product product);
+        void AddProduct(ProductEntity product);
 
-        void DeleteProduct(Product product);
+        void DeleteProduct(ProductEntity product);
     }
 }

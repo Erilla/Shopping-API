@@ -1,27 +1,53 @@
-﻿using ShoppingAPI.Business.Models;
+﻿using ShoppingAPI.EntityFramework;
+using ShoppingAPI.EntityFramework.Entities;
+using System.Data.Entity.Core;
 
 namespace ShoppingAPI.Business.Repositories
 {
     internal class ProductRepository : IProductRepository
     {
-        public void AddProduct(Product product)
+        private readonly ShoppingDbContext _dbContext;
+
+        public ProductRepository(ShoppingDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public void AddProduct(ProductEntity product)
+        {
+            _dbContext.Add(product);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteProduct(ProductEntity product)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteProduct(Product product)
+        public ProductEntity GetProductByProductCode(string productCode)
         {
-            throw new NotImplementedException();
+            return FindProduct(productCode);
         }
 
-        public Product GetProductByProductCode(string productCode)
+        public void UpdateProductPriceByProductCode(string productCode, decimal newPrice)
         {
-            throw new NotImplementedException();
+            var product = FindProduct(productCode);
+            product.ProductPrice = newPrice;
+            _dbContext.SaveChanges();
+            
         }
 
-        public void UpdateProduct(Product product)
+        private ProductEntity FindProduct(string productCode)
         {
-            throw new NotImplementedException();
+            var product = _dbContext.Products.SingleOrDefault(p => p.ProductCode.Equals(productCode));
+            if (product != null)
+            {
+                return product;
+            }
+            else
+            {
+                throw new ObjectNotFoundException($"Product with product code {productCode} not found.");
+            }
         }
     }
 }
