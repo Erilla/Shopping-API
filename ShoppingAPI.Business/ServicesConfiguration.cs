@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShoppingAPI.Business.Repositories;
 using ShoppingAPI.Business.Services;
+using ShoppingAPI.EntityFramework;
 
 namespace ShoppingAPI.Business
 {
@@ -13,6 +14,8 @@ namespace ShoppingAPI.Business
 
             // Services
             services.AddTransient<IProductService, ProductService>();
+
+            services.AddScoped<ShoppingDbContext>();
         }
     }
 }

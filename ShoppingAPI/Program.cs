@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using ShoppingAPI.Business;
+using ShoppingAPI.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,5 +27,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ShoppingDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
