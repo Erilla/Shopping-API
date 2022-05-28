@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ShoppingAPI.Business;
 using ShoppingAPI.EntityFramework;
@@ -18,6 +19,15 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ObjectNotFoundExceptionFilter>();
 });
+
+// Mapper
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new ShoppingMappingProfile());
+    mc.AddProfile(new ShoppingApiMappingProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

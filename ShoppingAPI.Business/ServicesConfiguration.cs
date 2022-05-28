@@ -17,15 +17,6 @@ namespace ShoppingAPI.Business
             services.AddTransient<IProductService, ProductService>();
 
             services.AddScoped<ShoppingDbContext>();
-
-            // Mapper
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new ShoppingMappingProfile());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
         }
     }
 }

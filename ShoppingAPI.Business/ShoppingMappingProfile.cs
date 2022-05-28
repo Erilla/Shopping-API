@@ -12,7 +12,6 @@ namespace ShoppingAPI.Business
             CreateMap<Product, ProductEntity>();
             CreateMap<CustomerEntity, Customer>();
             CreateMap<Customer, CustomerEntity>();
-
         }
     }
 }

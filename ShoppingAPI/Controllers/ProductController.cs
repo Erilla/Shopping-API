@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.Business.Models;
 using ShoppingAPI.Business.Services;
+using ShoppingAPI.Models;
 using ShoppingAPI.ExceptionFilter;
+using AutoMapper;
 
 namespace ShoppingAPI.Controllers
 {
@@ -10,36 +12,33 @@ namespace ShoppingAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
-        }
-
-        // GET: api/<ProductController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            _mapper = mapper;
         }
 
         // GET api/<ProductController>/EAN1
         [HttpGet("{productCode}")]
-        public Product Get(string productCode)
+        public Product GetByProductCode(string productCode)
         {
             return _productService.GetProductByProductCode(productCode);
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] UpdateProductRequest product)
         {
+            _productService.AddProduct(_mapper.Map<Product>(product));
         }
 
         // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{productCode}")]
+        public void PutProductPriceByProductCode(string productCode, [FromQuery] decimal newPrice)
         {
+            _productService.UpdateProductPriceByProductCode(productCode, newPrice);
         }
 
         // DELETE api/<ProductController>/5

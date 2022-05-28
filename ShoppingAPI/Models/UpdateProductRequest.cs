@@ -1,8 +1,7 @@
-﻿namespace ShoppingAPI.Business.Models
+﻿namespace ShoppingAPI.Models
 {
-    public class Product
+    public class UpdateProductRequest
     {
-        public int? Id { get; set; }
         public string ProductCode { get; set; }
         public decimal ProductPrice { get; set; }
     }

@@ -15,6 +15,7 @@ namespace ShoppingAPI.Business.Repositories
 
         public void AddProduct(ProductEntity product)
         {
+            // TODO: Check for existing product code
             _dbContext.Add(product);
             _dbContext.SaveChanges();
         }
