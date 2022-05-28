@@ -10,7 +10,7 @@ using ShoppingAPI.EntityFramework;
 namespace ShoppingAPI.Business.Migrations
 {
     [DbContext(typeof(ShoppingDbContext))]
-    partial class ShoppingContextModelSnapshot : ModelSnapshot
+    partial class ShoppingDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

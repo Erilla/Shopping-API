@@ -13,7 +13,5 @@ namespace ShoppingAPI.Business.Services
         void UpdateProductPriceByProductCode(string productCode, decimal newPrice);
 
         void AddProduct(Product product);
-
-        void DeleteProduct(Product product);
     }
 }

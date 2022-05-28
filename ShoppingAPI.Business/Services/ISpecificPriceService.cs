@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShoppingAPI.Business.Services
+﻿namespace ShoppingAPI.Business.Services
 {
     public interface ISpecificPriceService
     {
+        void CreateSpecificPriceByCustomerIdAndProductCode(int customerId, string productCode, decimal price);
+
+        void CreateSpecificPriceByCustomerNameAndProductCode(string customerName, string productCode, decimal price);
+
+        void UpdateSpecificPriceByCustomerIdAndProductCode(int customerId, string productCode, decimal newPrice);
+
+        void UpdateSpecificPriceByCustomerNameAndProductCode(string customerName, string productCode, decimal newPrice);
+
+        void DeleteSpecificPriceByCustomerIdAndProductCode(int customerId, string productCode);
+
+        void DeleteSpecificPriceByCustomerNameAndProductCode(string customerName, string productCode);
     }
 }

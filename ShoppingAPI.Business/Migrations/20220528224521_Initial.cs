@@ -4,7 +4,7 @@
 
 namespace ShoppingAPI.Business.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace ShoppingAPI.Business.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false, collation: "NOCASE")
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace ShoppingAPI.Business.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ProductCode = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false),
+                    ProductCode = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false, collation: "NOCASE"),
                     ProductPrice = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -61,6 +61,61 @@ namespace ShoppingAPI.Business.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "John" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Mary" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Lucas" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "ProductCode", "ProductPrice" },
+                values: new object[] { 1, "EAN1", 99.95m });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "ProductCode", "ProductPrice" },
+                values: new object[] { 2, "EAN2", 16.15m });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "ProductCode", "ProductPrice" },
+                values: new object[] { 3, "EAN3", 12m });
+
+            migrationBuilder.InsertData(
+                table: "SpecificPrices",
+                columns: new[] { "Id", "CustomerId", "Price", "ProductId" },
+                values: new object[] { 1, 1, 95.99m, 1 });
+
+            migrationBuilder.InsertData(
+                table: "SpecificPrices",
+                columns: new[] { "Id", "CustomerId", "Price", "ProductId" },
+                values: new object[] { 2, 1, 16.15m, 2 });
+
+            migrationBuilder.InsertData(
+                table: "SpecificPrices",
+                columns: new[] { "Id", "CustomerId", "Price", "ProductId" },
+                values: new object[] { 3, 2, 16.05m, 2 });
+
+            migrationBuilder.InsertData(
+                table: "SpecificPrices",
+                columns: new[] { "Id", "CustomerId", "Price", "ProductId" },
+                values: new object[] { 4, 2, 9.99m, 3 });
+
+            migrationBuilder.InsertData(
+                table: "SpecificPrices",
+                columns: new[] { "Id", "CustomerId", "Price", "ProductId" },
+                values: new object[] { 5, 3, 14m, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_SpecificPrices_CustomerId",

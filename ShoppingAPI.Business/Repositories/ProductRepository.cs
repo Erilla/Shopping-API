@@ -1,16 +1,17 @@
 ﻿using ShoppingAPI.EntityFramework;
 using ShoppingAPI.EntityFramework.Entities;
-using System.Data.Entity.Core;
 
 namespace ShoppingAPI.Business.Repositories
 {
     public class ProductRepository : IProductRepository
     {
         private readonly ShoppingDbContext _dbContext;
+        private readonly ICustomerRepository _customerRepository;
 
-        public ProductRepository(ShoppingDbContext dbContext)
+        public ProductRepository(ShoppingDbContext dbContext, ICustomerRepository customerRepository)
         {
             _dbContext = dbContext;
+            _customerRepository = customerRepository;
         }
 
         public void AddProduct(ProductEntity product)
@@ -26,35 +27,16 @@ namespace ShoppingAPI.Business.Repositories
             }
         }
 
-        public void DeleteProduct(ProductEntity product)
-        {
-            throw new NotImplementedException();
-        }
-
         public decimal GetProductPriceByCustomerIdAndProductCode(int customerId, string productCode)
         {
-            var customer = _dbContext.Customers.Where(cust => cust.Id.Equals(customerId)).FirstOrDefault();
-            if (customer != null)
-            {
-                return FindPriceByCustomerIdAndProductCode(customer.Id, productCode);
-            }
-            else
-            {
-                throw new ObjectNotFoundException($"Customer with customer id {customerId} not found.");
-            }
+            var customer = _customerRepository.FindCustomerById(customerId);
+            return FindPriceByCustomerIdAndProductCode(customer.Id, productCode);
         }
 
         public decimal GetProductPriceByCustomerNameAndProductCode(string customerName, string productCode)
         {
-            var customer = _dbContext.Customers.Where(cust => cust.Name.Equals(customerName)).FirstOrDefault();
-            if (customer != null)
-            {
-                return FindPriceByCustomerIdAndProductCode(customer.Id, productCode);
-            } 
-            else
-            {
-                throw new ObjectNotFoundException($"Customer with customer name {customerName} not found.");
-            }
+            var customer = _customerRepository.FindCustomerByName(customerName);
+            return FindPriceByCustomerIdAndProductCode(customer.Id, productCode);
         }
 
         public ProductEntity GetProductByProductCode(string productCode) => FindProduct(productCode);
@@ -75,7 +57,7 @@ namespace ShoppingAPI.Business.Repositories
             }
             else
             {
-                throw new ObjectNotFoundException($"Product with product code {productCode} not found.");
+                throw new InvalidOperationException($"Product with product code {productCode} not found.");
             }
         }
 

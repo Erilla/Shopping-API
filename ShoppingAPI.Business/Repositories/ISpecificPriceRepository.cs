@@ -1,17 +1,16 @@
 ﻿using ShoppingAPI.EntityFramework.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoppingAPI.Business.Repositories
 {
     public interface ISpecificPriceRepository
     {
-        void CreateSpecificPriceByCustomerIdAndProductCode(SpecificPriceEntity specificPrice);
+        SpecificPriceEntity GetSpecificPriceByCustomerIdAndProductCode(int customerId, string productCode);
 
-        void CreateSpecificPriceByCustomerNameAndProductCode(SpecificPriceEntity specificPrice);
+        SpecificPriceEntity GetSpecificPriceByCustomerNameAndProductCode(string customerName, string productCode);
+
+        void CreateSpecificPriceByCustomerIdAndProductCode(int customerId, string productCode, decimal price);
+
+        void CreateSpecificPriceByCustomerNameAndProductCode(string customerName, string productCode, decimal price);
 
         void UpdateSpecificPriceByCustomerIdAndProductCode(int customerId, string productCode, decimal newPrice);
 

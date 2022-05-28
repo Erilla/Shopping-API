@@ -18,11 +18,6 @@ namespace ShoppingAPI.Business.Services
 
         public void AddProduct(Product product) => _productRepository.AddProduct(_mapper.Map<ProductEntity>(product));
 
-        public void DeleteProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
         public Product GetProductByProductCode(string productCode) => _mapper.Map<Product>(_productRepository.GetProductByProductCode(productCode));
 
         public decimal GetProductPriceByCustomerIdAndProductCode(int customerId, string productCode) => _productRepository.GetProductPriceByCustomerIdAndProductCode(customerId, productCode);

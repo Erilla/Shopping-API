@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ShoppingAPI.Business.Repositories;
 using ShoppingAPI.Business.Services;
 using ShoppingAPI.EntityFramework;
@@ -11,6 +10,7 @@ namespace ShoppingAPI.Business
         public static void AddBusinessServices(this IServiceCollection services)
         {
             // Repositories
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISpecificPriceRepository, SpecificPriceRepository>();
 
