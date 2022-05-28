@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShoppingAPI.Business.Models;
 
 namespace ShoppingAPI.Business.Repositories
 {
     internal interface IProductRepository
     {
+        Product GetProductByProductCode(string productCode);
+
+        void UpdateProduct(Product product);
+
+        void AddProduct(Product product);
+
+        void DeleteProduct(Product product);
     }
 }

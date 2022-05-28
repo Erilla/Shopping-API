@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingAPI", "ShoppingAPI\ShoppingAPI.csproj", "{1B93CCC8-6227-4A19-A556-9444346F383C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingAPI.Business", "ShoppingAPI.Business\ShoppingAPI.Business.csproj", "{E28F824F-4809-46D5-BEAB-F59B7783E324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingAPI.Business", "ShoppingAPI.Business\ShoppingAPI.Business.csproj", "{E28F824F-4809-46D5-BEAB-F59B7783E324}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
