@@ -34,7 +34,6 @@ namespace ShoppingAPI.Business.Repositories
             var product = FindProduct(productCode);
             product.ProductPrice = newPrice;
             _dbContext.SaveChanges();
-            
         }
 
         private ProductEntity FindProduct(string productCode)

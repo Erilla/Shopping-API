@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.Business.Models;
 using ShoppingAPI.Business.Services;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using ShoppingAPI.ExceptionFilter;
 
 namespace ShoppingAPI.Controllers
 {

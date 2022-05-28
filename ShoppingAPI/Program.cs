@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingAPI.Business;
 using ShoppingAPI.EntityFramework;
+using ShoppingAPI.ExceptionFilter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddBusinessServices();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ObjectNotFoundExceptionFilter>();
+});
 
 var app = builder.Build();
 
