@@ -15,9 +15,15 @@ namespace ShoppingAPI.Business.Repositories
 
         public void AddProduct(ProductEntity product)
         {
-            // TODO: Check for existing product code
-            _dbContext.Add(product);
-            _dbContext.SaveChanges();
+            if (_dbContext.Products.SingleOrDefault(p => p.ProductCode.Equals(product.ProductCode)) == null)
+            {
+                _dbContext.Add(product);
+                _dbContext.SaveChanges();
+            } 
+            else
+            {
+                throw new ArgumentException($"Product Code {product.ProductCode} already exists.");
+            }
         }
 
         public void DeleteProduct(ProductEntity product)
@@ -25,10 +31,7 @@ namespace ShoppingAPI.Business.Repositories
             throw new NotImplementedException();
         }
 
-        public ProductEntity GetProductByProductCode(string productCode)
-        {
-            return FindProduct(productCode);
-        }
+        public ProductEntity GetProductByProductCode(string productCode) => FindProduct(productCode);
 
         public void UpdateProductPriceByProductCode(string productCode, decimal newPrice)
         {
@@ -39,7 +42,7 @@ namespace ShoppingAPI.Business.Repositories
 
         private ProductEntity FindProduct(string productCode)
         {
-            var product = _dbContext.Products.SingleOrDefault(p => p.ProductCode.Equals(productCode));
+            var product = _dbContext.Products.FirstOrDefault(p => p.ProductCode.Equals(productCode.ToUpper()));
             if (product != null)
             {
                 return product;

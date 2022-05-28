@@ -18,6 +18,7 @@ builder.Services.AddBusinessServices();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ObjectNotFoundExceptionFilter>();
+    options.Filters.Add<ArgumentExceptionFilter>();
 });
 
 // Mapper
