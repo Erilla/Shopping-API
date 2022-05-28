@@ -25,6 +25,10 @@ namespace ShoppingAPI.Business.Services
 
         public Product GetProductByProductCode(string productCode) => _mapper.Map<Product>(_productRepository.GetProductByProductCode(productCode));
 
+        public decimal GetProductPriceByCustomerIdAndProductCode(int customerId, string productCode) => _productRepository.GetProductPriceByCustomerIdAndProductCode(customerId, productCode);
+
+        public decimal GetProductPriceByCustomerNameAndProductCode(string customerName, string productCode) => _productRepository.GetProductPriceByCustomerNameAndProductCode(customerName, productCode);
+
         public void UpdateProductPriceByProductCode(string productCode, decimal newPrice) => _productRepository.UpdateProductPriceByProductCode(productCode, newPrice);
     }
 }

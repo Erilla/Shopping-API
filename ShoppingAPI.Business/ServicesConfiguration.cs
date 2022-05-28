@@ -12,9 +12,11 @@ namespace ShoppingAPI.Business
         {
             // Repositories
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ISpecificPriceRepository, SpecificPriceRepository>();
 
             // Services
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ISpecificPriceService, SpecificPriceService>();
 
             services.AddScoped<ShoppingDbContext>();
         }

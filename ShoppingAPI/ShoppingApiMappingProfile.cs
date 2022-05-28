@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ShoppingAPI.Business.Models;
 using ShoppingAPI.Models;
-using ShoppingAPI.EntityFramework.Entities;
 
 namespace ShoppingAPI.Business
 {
@@ -9,6 +8,12 @@ namespace ShoppingAPI.Business
     {
         public ShoppingApiMappingProfile()
         {
+            CreateMap<Product, GetProductPriceResponse>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(source => source.ProductPrice));
+
+            CreateMap<decimal, GetProductPriceResponse>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(source => source));
+
             CreateMap<UpdateProductRequest, Product>();
         }
     }

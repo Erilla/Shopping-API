@@ -9,8 +9,7 @@ namespace ShoppingAPI.Business
         public ShoppingMappingProfile()
         {
             CreateMap<ProductEntity, Product>();
-            CreateMap<Product, ProductEntity>()
-                .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(src => src.ProductCode.ToUpper()));
+            CreateMap<Product, ProductEntity>();
             CreateMap<CustomerEntity, Customer>();
             CreateMap<Customer, CustomerEntity>();
         }

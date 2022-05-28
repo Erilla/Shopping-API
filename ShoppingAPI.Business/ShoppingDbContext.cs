@@ -24,6 +24,12 @@ namespace ShoppingAPI.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProductEntity>()
+                .Property(e => e.ProductCode).UseCollation("NOCASE");
+
+            modelBuilder.Entity<CustomerEntity>()
+                .Property(e => e.Name).UseCollation("NOCASE");
+
             using StreamReader r = new("../ShoppingAPI.Business/Seeddata/customer-data.json");
             string json = r.ReadToEnd();
             var seedData = JsonConvert.DeserializeObject<RootSeedModel>(json);

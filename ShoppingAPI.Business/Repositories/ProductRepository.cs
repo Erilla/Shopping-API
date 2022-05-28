@@ -4,7 +4,7 @@ using System.Data.Entity.Core;
 
 namespace ShoppingAPI.Business.Repositories
 {
-    internal class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly ShoppingDbContext _dbContext;
 
@@ -31,6 +31,32 @@ namespace ShoppingAPI.Business.Repositories
             throw new NotImplementedException();
         }
 
+        public decimal GetProductPriceByCustomerIdAndProductCode(int customerId, string productCode)
+        {
+            var customer = _dbContext.Customers.Where(cust => cust.Id.Equals(customerId)).FirstOrDefault();
+            if (customer != null)
+            {
+                return FindPriceByCustomerIdAndProductCode(customer.Id, productCode);
+            }
+            else
+            {
+                throw new ObjectNotFoundException($"Customer with customer id {customerId} not found.");
+            }
+        }
+
+        public decimal GetProductPriceByCustomerNameAndProductCode(string customerName, string productCode)
+        {
+            var customer = _dbContext.Customers.Where(cust => cust.Name.Equals(customerName)).FirstOrDefault();
+            if (customer != null)
+            {
+                return FindPriceByCustomerIdAndProductCode(customer.Id, productCode);
+            } 
+            else
+            {
+                throw new ObjectNotFoundException($"Customer with customer name {customerName} not found.");
+            }
+        }
+
         public ProductEntity GetProductByProductCode(string productCode) => FindProduct(productCode);
 
         public void UpdateProductPriceByProductCode(string productCode, decimal newPrice)
@@ -50,6 +76,20 @@ namespace ShoppingAPI.Business.Repositories
             else
             {
                 throw new ObjectNotFoundException($"Product with product code {productCode} not found.");
+            }
+        }
+
+        private decimal FindPriceByCustomerIdAndProductCode(int customerId, string productCode)
+        {
+            var specificPrice = _dbContext.SpecificPrices.Where(sp => sp.Customer.Id.Equals(customerId) && sp.Product.ProductCode.Equals(productCode)).FirstOrDefault();
+            if (specificPrice == null)
+            {
+                var product = FindProduct(productCode);
+                return product.ProductPrice;
+            }
+            else
+            {
+                return specificPrice.Price;
             }
         }
     }

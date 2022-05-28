@@ -6,6 +6,10 @@ namespace ShoppingAPI.Business.Repositories
     {
         ProductEntity GetProductByProductCode(string productCode);
 
+        decimal GetProductPriceByCustomerIdAndProductCode(int customerId, string productCode);
+
+        decimal GetProductPriceByCustomerNameAndProductCode(string customerName, string productCode);
+
         void UpdateProductPriceByProductCode(string productCode, decimal newPrice);
 
         void AddProduct(ProductEntity product);

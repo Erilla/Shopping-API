@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ShoppingAPI.Business.Models;
 using ShoppingAPI.Business.Services;
 using ShoppingAPI.Models;
-using ShoppingAPI.ExceptionFilter;
-using AutoMapper;
 
 namespace ShoppingAPI.Controllers
 {
@@ -22,10 +21,21 @@ namespace ShoppingAPI.Controllers
 
         // GET api/<ProductController>/EAN1
         [HttpGet("{productCode}")]
-        public Product GetByProductCode(string productCode)
-        {
-            return _productService.GetProductByProductCode(productCode);
-        }
+        public Product GetByProductCode(string productCode) => _productService.GetProductByProductCode(productCode);
+
+
+        // GET api/<ProductController>/EAN1/price
+        [HttpGet("{productCode}/price")]
+        public GetProductPriceResponse GetPriceByProductCode(string productCode) => _mapper.Map<GetProductPriceResponse>(_productService.GetProductByProductCode(productCode));
+
+        // GET api/<ProductController>/EAN1/customer/1/price
+        [HttpGet("{productCode}/customer/{customerId}/price")]
+        public GetProductPriceResponse GetPriceByCustomerIdAndProductCode(int customerId, string productCode) => _mapper.Map<GetProductPriceResponse>(_productService.GetProductPriceByCustomerIdAndProductCode(customerId, productCode));
+
+        // GET api/<ProductController>/EAN1/customer/john/price
+        [HttpGet("{productCode}/customer/name/{customerName}/price")]
+        public GetProductPriceResponse GetPriceByCustomerIdAndProductCode(string customerName, string productCode) => _mapper.Map<GetProductPriceResponse>(_productService.GetProductPriceByCustomerNameAndProductCode(customerName, productCode));
+
 
         // POST api/<ProductController>
         [HttpPost]
